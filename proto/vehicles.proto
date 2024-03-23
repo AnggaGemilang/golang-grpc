@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "len/go-grpc-api/vehicle";
+
+package grpc;
+
+service VehiclesCRUD {
+  rpc CreateVehicle (VehicleInput) returns (VehicleResponse) {}
+  rpc DeleteVehicle (ID) returns (VehicleResponse) {}
+  rpc ListVehicles (ListVehicleReq) returns (ListVehicleRes) {}
+  rpc MostVehicles (MostVehicleReq) returns (ListMostVehicleRes) {}
+}
+
+message ID {
+  uint64 id = 1;
+}
+
+message VehicleInput {
+  string vehicleType = 1;
+  string vehicleModel = 2;
+  double longitude = 3;
+  double latitude = 4;
+  string createdAt = 5;
+}
+
+message ListVehicleReq {}
+
+message MostVehicleReq {
+  string filter = 1;
+}
+
+message Vehicle {
+  uint64 id = 1;
+  string vehicleType = 2;
+  string vehicleModel = 3;
+  double longitude = 4;
+  double latitude = 5;
+  string createdAt = 6;
+}
+
+message VehicleResponse {
+  string status = 1;
+  uint64 id = 2;
+  string desc = 3;
+}
+
+message ListVehicleRes {
+  string status = 1;
+  uint64 amount = 2;
+  repeated Vehicle vehicles = 3;
+}
+
+message MostVehicle {
+  string vehicleType = 1;
+  uint64 count = 2;
+}
+
+message ListMostVehicleRes {
+  string status = 1;
+  uint64 amount = 2;
+  repeated MostVehicle mostVehicles = 3;
+}
